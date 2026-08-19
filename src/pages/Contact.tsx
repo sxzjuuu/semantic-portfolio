@@ -125,7 +125,8 @@ export default function Contact() {
       {/* Page Header */}
       <section
         aria-labelledby="contact-heading"
-        className="px-6 pt-20 pb-12 sm:pt-28"
+        className="section-band"
+        style={{ paddingBottom: "3rem", paddingTop: "5rem" }}
       >
         <div className="mx-auto max-w-4xl">
           <motion.p
@@ -143,28 +144,29 @@ export default function Contact() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
           >
-            Let's connect
+            Let&apos;s connect
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 max-w-2xl text-muted-foreground leading-relaxed"
+            className="mt-4 max-w-2xl text-balance text-muted-foreground leading-relaxed"
           >
-            Have a project in mind, a question, or just want to say hello? I'd
-            love to hear from you. Fill out the form below and I'll get back to
+            Have a project in mind, a question, or just want to say hello? I&apos;d
+            love to hear from you. Fill out the form below and I&apos;ll get back to
             you as soon as possible.
           </motion.p>
         </div>
       </section>
 
-      {/* Contact Form & Info */}
+      {/* Contact Form & Info — Asymmetric CSS Grid */}
       <section
         aria-label="Contact form and information"
-        className="px-6 pb-20"
+        className="section-band"
+        style={{ paddingTop: 0 }}
       >
         <div className="mx-auto max-w-4xl">
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div className="contact-grid">
             {/* Contact Info Sidebar */}
             <motion.aside
               initial="hidden"
@@ -172,9 +174,8 @@ export default function Contact() {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={0}
-              className="lg:col-span-1"
             >
-              <div className="rounded-2xl border border-border/60 bg-card p-6">
+              <div className="capability-card" style={{ position: "sticky", top: "5rem" }}>
                 <h2 className="text-lg font-semibold text-foreground">
                   Get in Touch
                 </h2>
@@ -188,7 +189,8 @@ export default function Contact() {
                     <div key={info.label} className="flex items-center gap-3">
                       <div
                         aria-hidden="true"
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent"
+                        className="capability-icon"
+                        style={{ width: "2.5rem", height: "2.5rem", margin: 0, borderRadius: "0.75rem" }}
                       >
                         <info.icon className="h-5 w-5" />
                       </div>
@@ -198,7 +200,7 @@ export default function Contact() {
                         </p>
                         <a
                           href={info.href}
-                          className="text-sm font-medium text-foreground transition-colors hover:text-accent"
+                          className="text-sm font-medium text-foreground transition-smooth hover:text-accent"
                         >
                           {info.value}
                         </a>
@@ -210,25 +212,25 @@ export default function Contact() {
                 <div className="mt-6 border-t border-border/60 pt-6">
                   <p className="text-xs text-muted-foreground">
                     Available for freelance projects, full-time roles, and
-                    consulting. Let's discuss how I can help.
+                    consulting. Let&apos;s discuss how I can help.
                   </p>
                 </div>
               </div>
             </motion.aside>
 
-            {/* Contact Form */}
+            {/* Contact Form — CSS Grid form layout */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
               custom={1}
-              className="lg:col-span-2"
             >
               {submitted ? (
                 <div
                   role="alert"
-                  className="flex flex-col items-center justify-center rounded-2xl border border-border/60 bg-card p-12 text-center"
+                  className="capability-card"
+                  style={{ display: "grid", placeItems: "center", padding: "3rem", textAlign: "center" }}
                 >
                   <CheckCircle2
                     className="h-12 w-12 text-emerald-500"
@@ -238,7 +240,7 @@ export default function Contact() {
                     Message Sent!
                   </h2>
                   <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                    Thank you for reaching out. I'll review your message and get
+                    Thank you for reaching out. I&apos;ll review your message and get
                     back to you soon.
                   </p>
                   <button
@@ -253,7 +255,7 @@ export default function Contact() {
                       setTouched({});
                       setErrors({});
                     }}
-                    className="mt-6 rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-all hover:brightness-110"
+                    className="mt-6 rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground shadow-sm transition-smooth hover:brightness-110"
                   >
                     Send Another Message
                   </button>
@@ -262,12 +264,12 @@ export default function Contact() {
                 <form
                   onSubmit={handleSubmit}
                   noValidate
-                  className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
+                  className="capability-card"
                   aria-label="Contact form"
                 >
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="contact-form-grid">
                     {/* Name Field */}
-                    <div>
+                    <div className="form-field">
                       <label
                         htmlFor="contact-name"
                         className="mb-1.5 block text-sm font-medium text-foreground"
@@ -292,11 +294,7 @@ export default function Contact() {
                         aria-describedby={
                           errors.name && touched.name ? "name-error" : undefined
                         }
-                        className={`w-full rounded-xl border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/30 ${
-                          errors.name && touched.name
-                            ? "border-destructive focus:ring-destructive/30"
-                            : "border-input focus:border-accent"
-                        }`}
+                        className="form-input"
                         placeholder="Your name"
                       />
                       {errors.name && touched.name && (
@@ -312,7 +310,7 @@ export default function Contact() {
                     </div>
 
                     {/* Email Field */}
-                    <div>
+                    <div className="form-field">
                       <label
                         htmlFor="contact-email"
                         className="mb-1.5 block text-sm font-medium text-foreground"
@@ -339,11 +337,7 @@ export default function Contact() {
                             ? "email-error"
                             : undefined
                         }
-                        className={`w-full rounded-xl border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/30 ${
-                          errors.email && touched.email
-                            ? "border-destructive focus:ring-destructive/30"
-                            : "border-input focus:border-accent"
-                        }`}
+                        className="form-input"
                         placeholder="you@example.com"
                       />
                       {errors.email && touched.email && (
@@ -359,8 +353,8 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Subject Field */}
-                  <div className="mt-5">
+                  {/* Subject Field — Full width */}
+                  <div className="form-field" style={{ marginTop: "1.25rem" }}>
                     <label
                       htmlFor="contact-subject"
                       className="mb-1.5 block text-sm font-medium text-foreground"
@@ -386,11 +380,7 @@ export default function Contact() {
                           ? "subject-error"
                           : undefined
                       }
-                      className={`w-full rounded-xl border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/30 ${
-                        errors.subject && touched.subject
-                          ? "border-destructive focus:ring-destructive/30"
-                          : "border-input focus:border-accent"
-                      }`}
+                      className="form-input"
                       placeholder="What's this about?"
                     />
                     {errors.subject && touched.subject && (
@@ -405,8 +395,8 @@ export default function Contact() {
                     )}
                   </div>
 
-                  {/* Message Field */}
-                  <div className="mt-5">
+                  {/* Message Field — Full width */}
+                  <div className="form-field" style={{ marginTop: "1.25rem" }}>
                     <label
                       htmlFor="contact-message"
                       className="mb-1.5 block text-sm font-medium text-foreground"
@@ -432,11 +422,8 @@ export default function Contact() {
                           : "message-count"
                       }
                       rows={5}
-                      className={`w-full resize-y rounded-xl border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/30 ${
-                        errors.message && touched.message
-                          ? "border-destructive focus:ring-destructive/30"
-                          : "border-input focus:border-accent"
-                      }`}
+                      className="form-input"
+                      style={{ resize: "vertical" }}
                       placeholder="Tell me about your project, idea, or just say hi..."
                     />
                     {errors.message && touched.message && (
@@ -459,11 +446,11 @@ export default function Contact() {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="mt-6">
+                  <div style={{ marginTop: "1.5rem" }}>
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-all duration-200 hover:shadow-xl hover:shadow-accent/30 hover:brightness-110 disabled:pointer-events-none disabled:opacity-60 sm:w-auto"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-accent-glow transition-smooth hover:brightness-110 disabled:pointer-events-none disabled:opacity-60 sm:w-auto"
                       aria-busy={submitting}
                     >
                       {submitting ? (

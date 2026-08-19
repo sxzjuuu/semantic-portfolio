@@ -23,7 +23,7 @@ const projects = [
     tags: ["React", "TypeScript", "Node.js"],
     liveUrl: "https://lumina.example.com",
     githubUrl: "https://github.com/alexmorgan/lumina",
-    color: "from-accent/20 to-accent/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, var(--accent) 15%, transparent), color-mix(in oklch, var(--accent) 3%, transparent))",
     featured: true,
   },
   {
@@ -34,7 +34,7 @@ const projects = [
     tags: ["Next.js", "TypeScript", "PostgreSQL"],
     liveUrl: "https://verdant.example.com",
     githubUrl: "https://github.com/alexmorgan/verdant",
-    color: "from-emerald-500/20 to-emerald-500/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.60 0.14 170) 15%, transparent), color-mix(in oklch, oklch(0.60 0.14 170) 3%, transparent))",
     featured: true,
   },
   {
@@ -45,7 +45,7 @@ const projects = [
     tags: ["React", "Convex", "TypeScript"],
     liveUrl: "https://resonance.example.com",
     githubUrl: "https://github.com/alexmorgan/resonance",
-    color: "from-violet-500/20 to-violet-500/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.55 0.10 290) 15%, transparent), color-mix(in oklch, oklch(0.55 0.10 290) 3%, transparent))",
     featured: true,
   },
   {
@@ -56,7 +56,7 @@ const projects = [
     tags: ["React", "TypeScript", "Figma"],
     liveUrl: "https://orbit.example.com",
     githubUrl: "https://github.com/alexmorgan/orbit",
-    color: "from-amber-500/20 to-amber-500/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.75 0.15 85) 15%, transparent), color-mix(in oklch, oklch(0.75 0.15 85) 3%, transparent))",
     featured: false,
   },
   {
@@ -67,7 +67,7 @@ const projects = [
     tags: ["Python", "PostgreSQL", "Node.js"],
     liveUrl: "https://weatherflow.example.com",
     githubUrl: "https://github.com/alexmorgan/weatherflow",
-    color: "from-sky-500/20 to-sky-500/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.65 0.10 230) 15%, transparent), color-mix(in oklch, oklch(0.65 0.10 230) 3%, transparent))",
     featured: false,
   },
   {
@@ -78,7 +78,7 @@ const projects = [
     tags: ["React", "TypeScript"],
     liveUrl: "https://pulse.example.com",
     githubUrl: "https://github.com/alexmorgan/pulse",
-    color: "from-rose-500/20 to-rose-500/5",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.60 0.15 15) 15%, transparent), color-mix(in oklch, oklch(0.60 0.15 15) 3%, transparent))",
     featured: false,
   },
 ];
@@ -105,7 +105,8 @@ export default function Projects() {
       {/* Page Header */}
       <section
         aria-labelledby="projects-heading"
-        className="px-6 pt-20 pb-12 sm:pt-28"
+        className="section-band"
+        style={{ paddingBottom: "3rem", paddingTop: "5rem" }}
       >
         <div className="mx-auto max-w-6xl">
           <motion.p
@@ -129,19 +130,20 @@ export default function Projects() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 max-w-2xl text-muted-foreground leading-relaxed"
+            className="mt-4 max-w-2xl text-balance text-muted-foreground leading-relaxed"
           >
-            A collection of projects I've built, contributed to, or designed.
+            A collection of projects I&apos;ve built, contributed to, or designed.
             Each represents a unique challenge and a chance to learn something
             new.
           </motion.p>
         </div>
       </section>
 
-      {/* Filter Bar */}
+      {/* Filter Bar — Scrollable pill toolbar */}
       <section
         aria-label="Project filters"
-        className="px-6 pb-8"
+        className="section-band"
+        style={{ paddingBottom: "2rem", paddingTop: 0 }}
       >
         <div className="mx-auto max-w-6xl">
           <motion.div
@@ -151,7 +153,7 @@ export default function Projects() {
             role="toolbar"
             aria-label="Filter projects by technology"
           >
-            <div className="flex items-center gap-2 overflow-x-auto pb-2">
+            <div className="filter-toolbar">
               <Search
                 aria-hidden="true"
                 className="h-4 w-4 shrink-0 text-muted-foreground"
@@ -161,11 +163,7 @@ export default function Projects() {
                   key={tag}
                   onClick={() => setActiveFilter(tag)}
                   aria-pressed={activeFilter === tag}
-                  className={`shrink-0 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
-                    activeFilter === tag
-                      ? "bg-accent text-accent-foreground shadow-sm"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  }`}
+                  className="filter-pill"
                 >
                   {tag}
                 </button>
@@ -183,14 +181,15 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* Projects Grid */}
+      {/* Projects Grid — CSS Grid responsive columns */}
       <section
         aria-label="Projects list"
-        className="px-6 pb-20"
+        className="section-band"
+        style={{ paddingTop: 0 }}
       >
         <div className="mx-auto max-w-6xl">
           <div
-            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="projects-grid"
             role="list"
           >
             {filteredProjects.map((project, i) => (
@@ -201,22 +200,23 @@ export default function Projects() {
                 variants={fadeUp}
                 custom={i}
                 role="listitem"
-                className="group overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5"
+                className={`project-card ${project.featured ? "project-card--featured" : ""}`}
               >
                 {/* Project thumbnail */}
                 <div
                   aria-hidden="true"
-                  className={`relative flex h-40 items-center justify-center bg-gradient-to-br ${project.color}`}
+                  className="project-card__thumbnail"
+                  style={{ background: project.gradient }}
                 >
                   <Code2 className="h-12 w-12 text-foreground/20" />
                   {project.featured && (
-                    <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-accent-foreground">
+                    <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-accent-foreground shadow-sm">
                       Featured
                     </span>
                   )}
                 </div>
 
-                <div className="p-6">
+                <div className="project-card__body">
                   <h3 className="text-lg font-semibold text-foreground">
                     {project.title}
                   </h3>
@@ -224,7 +224,7 @@ export default function Projects() {
                     {project.description}
                   </p>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
+                  <div className="project-card__tags" style={{ marginTop: "1rem" }}>
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -235,12 +235,12 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  <div className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+                  <div className="project-card__actions">
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-smooth hover:text-accent/80"
                       aria-label={`${project.title} live demo (opens in new tab)`}
                     >
                       <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -250,7 +250,7 @@ export default function Projects() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-smooth hover:text-foreground"
                       aria-label={`${project.title} source code on GitHub (opens in new tab)`}
                     >
                       <Github className="h-3.5 w-3.5" aria-hidden="true" />
@@ -263,13 +263,13 @@ export default function Projects() {
           </div>
 
           {filteredProjects.length === 0 && (
-            <div className="py-16 text-center">
+            <div style={{ padding: "4rem 0", textAlign: "center" }}>
               <p className="text-muted-foreground">
                 No projects found for this filter.
               </p>
               <button
                 onClick={() => setActiveFilter("All")}
-                className="mt-3 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+                className="mt-3 text-sm font-medium text-accent transition-smooth hover:text-accent/80"
               >
                 Clear filter
               </button>

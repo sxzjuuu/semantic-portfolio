@@ -24,32 +24,30 @@ function Header() {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl"
+      className="site-header"
     >
       <nav
         role="navigation"
         aria-label="Primary navigation"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
+        className="nav-container"
       >
         <NavLink
           to="/"
           aria-label="Alex Morgan — Home"
-          className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-accent"
+          className="text-lg font-bold tracking-tight text-foreground transition-smooth hover:text-accent"
         >
-          <span aria-hidden="true" className="text-accent">
-            A
-          </span>
+          <span aria-hidden="true" className="text-accent">A</span>
           lex Morgan
         </NavLink>
 
-        <ul className="flex items-center gap-1" role="list">
+        <ul className="nav-links" role="list">
           {navLinks.map((link) => (
             <li key={link.to} role="listitem">
               <NavLink
                 to={link.to}
                 end={link.to === "/"}
                 className={({ isActive }) =>
-                  `rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                  `rounded-lg px-4 py-2 text-sm font-medium transition-smooth ${
                     isActive
                       ? "bg-accent/10 text-accent"
                       : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -71,10 +69,10 @@ function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="border-t border-border/60 bg-background"
+      className="site-footer"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-12 sm:flex-row sm:justify-between">
-        <div className="text-center sm:text-left">
+      <div className="footer-inner">
+        <div>
           <p className="text-sm font-medium text-foreground">
             © {currentYear} Alex Morgan
           </p>
@@ -84,13 +82,13 @@ function Footer() {
         </div>
 
         <nav aria-label="Social media links">
-          <ul className="flex items-center gap-4" role="list">
+          <ul className="footer-social" role="list">
             <li>
               <a
                 href="https://github.com/alexmorgan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                className="text-sm text-muted-foreground transition-smooth hover:text-accent"
                 aria-label="GitHub profile (opens in new tab)"
               >
                 GitHub
@@ -101,7 +99,7 @@ function Footer() {
                 href="https://linkedin.com/in/alexmorgan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                className="text-sm text-muted-foreground transition-smooth hover:text-accent"
                 aria-label="LinkedIn profile (opens in new tab)"
               >
                 LinkedIn
@@ -112,7 +110,7 @@ function Footer() {
                 href="https://twitter.com/alexmorgan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                className="text-sm text-muted-foreground transition-smooth hover:text-accent"
                 aria-label="Twitter profile (opens in new tab)"
               >
                 Twitter
@@ -139,9 +137,9 @@ export default function Layout() {
     <>
       <SkipLink />
       <ScrollToTop />
-      <div className="flex min-h-screen flex-col">
+      <div className="portfolio-page">
         <Header />
-        <main id="main-content" role="main" className="flex-1">
+        <main id="main-content" role="main">
           <Outlet />
         </main>
         <Footer />

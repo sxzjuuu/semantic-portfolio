@@ -16,7 +16,7 @@ const featuredProjects = [
     description:
       "A real-time analytics dashboard with interactive data visualizations and responsive design.",
     tags: ["React", "TypeScript", "D3.js"],
-    color: "bg-accent/10",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, var(--accent) 15%, transparent), color-mix(in oklch, var(--accent) 3%, transparent))",
     href: "/projects",
   },
   {
@@ -25,7 +25,7 @@ const featuredProjects = [
     description:
       "An e-commerce platform for sustainable goods with seamless checkout and inventory management.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
-    color: "bg-emerald-500/10",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.60 0.14 170) 15%, transparent), color-mix(in oklch, oklch(0.60 0.14 170) 3%, transparent))",
     href: "/projects",
   },
   {
@@ -34,7 +34,7 @@ const featuredProjects = [
     description:
       "A social media app focused on meaningful connections with real-time messaging and content feeds.",
     tags: ["React Native", "Convex", "WebSocket"],
-    color: "bg-violet-500/10",
+    gradient: "linear-gradient(135deg, color-mix(in oklch, oklch(0.55 0.10 290) 15%, transparent), color-mix(in oklch, oklch(0.55 0.10 290) 3%, transparent))",
     href: "/projects",
   },
 ];
@@ -93,18 +93,14 @@ const fadeUp = {
 export default function Landing() {
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section — CSS Grid + radial-gradient backdrop */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden px-6 pb-24 pt-20 sm:pt-28 lg:pt-36"
+        className="hero-section"
       >
-        {/* Subtle background gradient */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--accent)/8%,transparent)]"
-        />
+        <div aria-hidden="true" className="hero-bg" />
 
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="hero-grid">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -120,7 +116,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+            className="text-balance text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
           >
             I craft digital experiences
             <br />
@@ -133,7 +129,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
+            className="mx-auto max-w-2xl text-balance text-lg leading-relaxed text-muted-foreground"
           >
             Full-stack developer and designer with a passion for creating
             inclusive, performant, and visually refined web applications. Every
@@ -144,18 +140,18 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-4 flex flex-wrap items-center justify-center gap-4"
           >
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg shadow-accent/20 transition-all duration-200 hover:shadow-xl hover:shadow-accent/30 hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-accent-glow transition-smooth hover:brightness-110"
             >
               View My Work
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground transition-all duration-200 hover:bg-secondary"
+              className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground shadow-layered transition-smooth hover:bg-secondary"
             >
               Get In Touch
             </Link>
@@ -163,10 +159,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Capabilities Section */}
+      {/* Capabilities — 2D CSS Grid */}
       <section
         aria-labelledby="capabilities-heading"
-        className="border-t border-border/60 bg-secondary/30 px-6 py-20"
+        className="section-band section-band--alt"
       >
         <div className="mx-auto max-w-6xl">
           <motion.h2
@@ -176,7 +172,7 @@ export default function Landing() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={0}
-            className="text-center text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+            className="text-balance text-center text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
           >
             What I Do
           </motion.h2>
@@ -186,13 +182,13 @@ export default function Landing() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeUp}
             custom={1}
-            className="mx-auto mt-4 max-w-xl text-center text-muted-foreground"
+            className="mx-auto mt-4 max-w-xl text-balance text-center text-muted-foreground"
           >
             Specialized in building modern web applications with a focus on user
             experience, accessibility, and clean architecture.
           </motion.p>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-3">
+          <div className="capabilities-grid">
             {capabilities.map((cap, i) => (
               <motion.article
                 key={cap.title}
@@ -201,11 +197,11 @@ export default function Landing() {
                 viewport={{ once: true, margin: "-100px" }}
                 variants={fadeUp}
                 custom={i + 2}
-                className="group rounded-2xl border border-border/60 bg-card p-8 shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-md hover:shadow-accent/5"
+                className="capability-card"
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground"
+                  className="capability-icon"
                 >
                   <cap.icon className="h-6 w-6" />
                 </div>
@@ -221,10 +217,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Featured Projects Section */}
+      {/* Featured Projects — CSS Grid with responsive columns */}
       <section
         aria-labelledby="projects-heading"
-        className="px-6 py-20"
+        className="section-band"
       >
         <div className="mx-auto max-w-6xl">
           <div className="flex items-end justify-between">
@@ -260,7 +256,7 @@ export default function Landing() {
             >
               <Link
                 to="/projects"
-                className="hidden items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80 sm:inline-flex"
+                className="hidden items-center gap-1.5 text-sm font-medium text-accent transition-smooth hover:text-accent/80 sm:inline-flex"
               >
                 View all projects
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -268,7 +264,7 @@ export default function Landing() {
             </motion.div>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="projects-grid" style={{ marginTop: "2.5rem" }}>
             {featuredProjects.map((project, i) => (
               <motion.article
                 key={project.id}
@@ -277,38 +273,41 @@ export default function Landing() {
                 viewport={{ once: true, margin: "-100px" }}
                 variants={fadeUp}
                 custom={i + 3}
-                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm transition-all duration-300 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5"
+                className="project-card"
               >
                 <Link
                   to={project.href}
-                  className="block p-6"
+                  className="flex flex-1 flex-col"
                   aria-label={`View ${project.title} project details`}
                 >
                   <div
                     aria-hidden="true"
-                    className={`mb-4 flex h-32 items-center justify-center rounded-xl ${project.color}`}
+                    className="project-card__thumbnail"
+                    style={{ background: project.gradient }}
                   >
-                    <Code2 className="h-10 w-10 text-accent/60" />
+                    <Code2 className="h-10 w-10 text-foreground/20" />
                   </div>
-                  <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
-                    {project.title}
-                    <ExternalLink
-                      className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                      aria-hidden="true"
-                    />
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="project-card__body">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
+                      {project.title}
+                      <ExternalLink
+                        className="h-4 w-4 text-muted-foreground opacity-0 transition-smooth group-hover:opacity-100"
+                        aria-hidden="true"
+                      />
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <div className="project-card__tags" style={{ marginTop: "1rem" }}>
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </Link>
               </motion.article>
@@ -327,10 +326,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials — Equal-height CSS Grid */}
       <section
         aria-labelledby="testimonials-heading"
-        className="border-t border-border/60 bg-secondary/30 px-6 py-20"
+        className="section-band section-band--alt"
       >
         <div className="mx-auto max-w-6xl">
           <motion.h2
@@ -345,7 +344,7 @@ export default function Landing() {
             Kind Words
           </motion.h2>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+          <div className="testimonials-grid" style={{ marginTop: "3.5rem" }}>
             {testimonials.map((t, i) => (
               <motion.blockquote
                 key={t.author}
@@ -354,14 +353,14 @@ export default function Landing() {
                 viewport={{ once: true, margin: "-100px" }}
                 variants={fadeUp}
                 custom={i + 1}
-                className="rounded-2xl border border-border/60 bg-card p-8 shadow-sm"
+                className="testimonial-card"
               >
                 <Quote
                   aria-hidden="true"
                   className="mb-4 h-8 w-8 text-accent/40"
                 />
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  "{t.quote}"
+                  &ldquo;{t.quote}&rdquo;
                 </p>
                 <footer className="mt-6">
                   <p className="text-sm font-semibold text-foreground">
@@ -375,10 +374,10 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section — Grid-centered banner with layered shadow */}
       <section
         aria-labelledby="cta-heading"
-        className="px-6 py-20"
+        className="section-band"
       >
         <motion.div
           initial="hidden"
@@ -386,21 +385,21 @@ export default function Landing() {
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
           custom={0}
-          className="mx-auto max-w-3xl rounded-3xl bg-accent px-8 py-16 text-center shadow-xl shadow-accent/20 sm:px-16"
+          className="mx-auto max-w-3xl cta-banner"
         >
           <h2
             id="cta-heading"
-            className="text-2xl font-bold tracking-tight text-accent-foreground sm:text-3xl"
+            className="text-balance text-2xl font-bold tracking-tight text-accent-foreground sm:text-3xl"
           >
-            Let's Build Something Great Together
+            Let&apos;s Build Something Great Together
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-accent-foreground/80">
-            I'm always open to discussing new projects, creative ideas, or
+          <p className="mx-auto mt-4 max-w-md text-balance text-accent-foreground/80">
+            I&apos;m always open to discussing new projects, creative ideas, or
             opportunities to bring your vision to life.
           </p>
           <Link
             to="/contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-background px-6 py-3 text-sm font-semibold text-foreground shadow-lg transition-all duration-200 hover:shadow-xl hover:brightness-105"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-background px-6 py-3 text-sm font-semibold text-foreground shadow-layered-lg transition-smooth hover:brightness-105"
           >
             Start a Conversation
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

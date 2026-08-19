@@ -59,7 +59,8 @@ export default function About() {
       {/* Page Header */}
       <section
         aria-labelledby="about-heading"
-        className="px-6 pt-20 pb-12 sm:pt-28"
+        className="section-band"
+        style={{ paddingBottom: "3rem", paddingTop: "5rem" }}
       >
         <div className="mx-auto max-w-4xl">
           <motion.p
@@ -83,9 +84,9 @@ export default function About() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 max-w-2xl text-muted-foreground leading-relaxed"
+            className="mt-4 max-w-2xl text-balance text-muted-foreground leading-relaxed"
           >
-            I'm a creative developer and designer based in San Francisco,
+            I&apos;m a creative developer and designer based in San Francisco,
             passionate about building web experiences that are beautiful,
             performant, and accessible to everyone. With over five years of
             experience, I bridge the gap between design and engineering.
@@ -93,24 +94,25 @@ export default function About() {
         </div>
       </section>
 
-      {/* Bio Detail */}
+      {/* Bio Detail — 2-column CSS Grid */}
       <section
         aria-labelledby="bio-heading"
-        className="px-6 py-12"
+        className="section-band"
+        style={{ paddingTop: 0 }}
       >
         <div className="mx-auto max-w-4xl">
-          <div className="grid gap-8 sm:grid-cols-2">
+          <h2 id="bio-heading" className="sr-only">
+            Bio Details
+          </h2>
+          <div className="bio-grid">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
               custom={0}
-              className="rounded-2xl border border-border/60 bg-card p-8"
+              className="capability-card"
             >
-              <h2 id="bio-heading" className="sr-only">
-                Bio Details
-              </h2>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin
                   className="h-4 w-4 text-accent"
@@ -130,10 +132,10 @@ export default function About() {
                   I believe that great software is built at the intersection of
                   technical excellence and empathetic design. Every project I
                   take on is an opportunity to create something that genuinely
-                  improves people's lives.
+                  improves people&apos;s lives.
                 </p>
                 <p>
-                  When I'm not coding, you'll find me exploring design systems,
+                  When I&apos;m not coding, you&apos;ll find me exploring design systems,
                   contributing to open source, or mentoring aspiring developers
                   in the community.
                 </p>
@@ -146,14 +148,14 @@ export default function About() {
               viewport={{ once: true }}
               variants={fadeUp}
               custom={1}
-              className="rounded-2xl border border-border/60 bg-card p-8"
+              className="capability-card"
             >
-              <h2 className="text-lg font-semibold text-foreground">
+              <h3 className="text-lg font-semibold text-foreground">
                 Core Values
-              </h2>
+              </h3>
               <ul className="mt-4 space-y-3" role="list">
                 {[
-                  "Accessibility is not optional — it's a fundamental right",
+                  "Accessibility is not optional — it&apos;s a fundamental right",
                   "Clean code is maintainable code",
                   "Design systems create consistency and scale",
                   "Performance impacts real people",
@@ -176,10 +178,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Skills Section — 2D CSS Grid */}
       <section
         aria-labelledby="skills-heading"
-        className="border-t border-border/60 bg-secondary/30 px-6 py-20"
+        className="section-band section-band--alt"
       >
         <div className="mx-auto max-w-4xl">
           <motion.h2
@@ -194,7 +196,7 @@ export default function About() {
             Skills & Expertise
           </motion.h2>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="skills-grid" style={{ marginTop: "2.5rem" }}>
             {skills.map((group, i) => (
               <motion.article
                 key={group.category}
@@ -203,7 +205,7 @@ export default function About() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i + 1}
-                className="rounded-2xl border border-border/60 bg-card p-6"
+                className="capability-card"
               >
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
                   {group.category}
@@ -224,10 +226,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Experience Timeline */}
+      {/* Experience Timeline — CSS Grid alignment */}
       <section
         aria-labelledby="experience-heading"
-        className="px-6 py-20"
+        className="section-band"
       >
         <div className="mx-auto max-w-4xl">
           <motion.h2
@@ -242,7 +244,7 @@ export default function About() {
             Experience
           </motion.h2>
 
-          <div className="mt-10 space-y-0">
+          <div className="timeline">
             {experience.map((job, i) => (
               <motion.article
                 key={job.role}
@@ -251,25 +253,17 @@ export default function About() {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i + 1}
-                className="group relative flex gap-6 pb-10 last:pb-0"
+                className="timeline-item"
               >
-                {/* Timeline line */}
-                {i < experience.length - 1 && (
-                  <div
-                    aria-hidden="true"
-                    className="absolute left-[19px] top-10 h-full w-px bg-border"
-                  />
-                )}
-
                 {/* Timeline dot */}
                 <div
                   aria-hidden="true"
-                  className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/60 bg-card group-hover:border-accent/40"
+                  className="timeline-dot"
                 >
                   <Briefcase className="h-4 w-4 text-accent" />
                 </div>
 
-                <div className="flex-1 rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-sm">
+                <div className="timeline-card">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-base font-semibold text-foreground">
                       {job.role}
@@ -295,7 +289,7 @@ export default function About() {
       {/* Education */}
       <section
         aria-labelledby="education-heading"
-        className="border-t border-border/60 bg-secondary/30 px-6 py-20"
+        className="section-band section-band--alt"
       >
         <div className="mx-auto max-w-4xl">
           <motion.h2
@@ -316,24 +310,28 @@ export default function About() {
             viewport={{ once: true }}
             variants={fadeUp}
             custom={1}
-            className="mt-10 flex gap-6 rounded-2xl border border-border/60 bg-card p-8"
+            className="capability-card"
+            style={{ marginTop: "2.5rem" }}
           >
-            <div
-              aria-hidden="true"
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent"
-            >
-              <GraduationCap className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-foreground">
-                B.S. Computer Science
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                University of California, Berkeley
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Graduated 2019 — Focus in Human-Computer Interaction
-              </p>
+            <div style={{ display: "grid", gridTemplateColumns: "3rem 1fr", gap: "1.5rem", alignItems: "start" }}>
+              <div
+                aria-hidden="true"
+                className="capability-icon"
+                style={{ margin: 0 }}
+              >
+                <GraduationCap className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-foreground">
+                  B.S. Computer Science
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  University of California, Berkeley
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Graduated 2019 — Focus in Human-Computer Interaction
+                </p>
+              </div>
             </div>
           </motion.article>
         </div>

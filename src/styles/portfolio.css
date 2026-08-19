@@ -1,0 +1,783 @@
+/* ============================================================
+   PORTFOLIO — Advanced CSS3 & Responsive Architecture
+   Grid layouts, keyframe animations, custom properties,
+   backdrop effects, layered shadows, and mobile-first responsive
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. PAGE-LEVEL CSS GRID SHELL
+   ---------------------------------------------------------- */
+.portfolio-page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+}
+
+/* ----------------------------------------------------------
+   2. HEADER / NAVBAR
+   ---------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: color-mix(in oklch, var(--background) 80%, transparent);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+.nav-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 4rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-self: end;
+}
+
+/* ----------------------------------------------------------
+   3. FOOTER
+   ---------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--background);
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  justify-items: center;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+@media (width >= 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr auto;
+    justify-items: start;
+  }
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ----------------------------------------------------------
+   4. HERO SECTION — Complex CSS Grid
+   ---------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 1.5rem 6rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in oklch, var(--accent) 8%, transparent), transparent);
+}
+
+/* Extra mesh-gradient layer for depth */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 60%;
+  height: 80%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 5%, transparent), transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 50%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklch, var(--accent) 3%, transparent), transparent 70%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------
+   5. CAPABILITIES GRID — 2D responsive grid
+   ---------------------------------------------------------- */
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+@media (width >= 640px) {
+  .capabilities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.capability-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--card);
+  padding: 2rem;
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--foreground) 2%, transparent),
+    0 4px 8px -2px color-mix(in oklch, var(--foreground) 1%, transparent);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.capability-card:hover {
+  border-color: color-mix(in oklch, var(--accent) 30%, transparent);
+  box-shadow:
+    0 4px 12px color-mix(in oklch, var(--accent) 5%, transparent),
+    0 8px 24px -4px color-mix(in oklch, var(--accent) 3%, transparent);
+  transform: translateY(-2px);
+}
+
+.capability-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, var(--accent) 10%, transparent);
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.capability-card:hover .capability-icon {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* ----------------------------------------------------------
+   6. PROJECT CARDS — Asymmetric featured layout
+   ---------------------------------------------------------- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (width >= 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Featured card spans 2 columns on large screens */
+@media (width >= 1024px) {
+  .project-card--featured {
+    grid-column: span 1;
+  }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--card);
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--foreground) 3%, transparent);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  border-color: color-mix(in oklch, var(--accent) 30%, transparent);
+  box-shadow:
+    0 8px 24px color-mix(in oklch, var(--accent) 5%, transparent),
+    0 16px 48px -8px color-mix(in oklch, var(--accent) 3%, transparent);
+  transform: translateY(-3px);
+}
+
+.project-card__thumbnail {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 10rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--accent) 15%, transparent),
+    color-mix(in oklch, var(--accent) 3%, transparent)
+  );
+}
+
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.project-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+/* ----------------------------------------------------------
+   7. TESTIMONIALS — Equal height grid
+   ---------------------------------------------------------- */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (width >= 640px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--card);
+  padding: 2rem;
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--foreground) 3%, transparent);
+}
+
+/* ----------------------------------------------------------
+   8. ABOUT PAGE — Asymmetric 2-column grid
+   ---------------------------------------------------------- */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (width >= 640px) {
+  .bio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (width >= 640px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ----------------------------------------------------------
+   9. TIMELINE — CSS Grid for alignment
+   ---------------------------------------------------------- */
+.timeline {
+  display: grid;
+  gap: 0;
+  margin-top: 2.5rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.5rem;
+  padding-bottom: 2.5rem;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(1.25rem - 0.5px);
+  top: 2.5rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-dot {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--card);
+  transition: border-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+}
+
+.timeline-card {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  background: var(--card);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item:hover .timeline-card {
+  border-color: color-mix(in oklch, var(--accent) 30%, transparent);
+  box-shadow: 0 2px 8px color-mix(in oklch, var(--accent) 5%, transparent);
+}
+
+/* ----------------------------------------------------------
+   10. CONTACT — Asymmetric Grid
+   ---------------------------------------------------------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (width >= 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (width >= 640px) {
+  .contact-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact-form-grid > .form-field--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--input);
+  background: var(--background);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  caret-color: var(--accent);
+}
+
+.form-input::placeholder {
+  color: color-mix(in oklch, var(--muted-foreground) 60%, transparent);
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, var(--accent) 15%, transparent),
+    0 1px 2px color-mix(in oklch, var(--accent) 8%, transparent);
+}
+
+.form-input[aria-invalid="true"] {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, var(--destructive) 12%, transparent);
+}
+
+.form-input[aria-invalid="true"]:focus {
+  border-color: var(--destructive);
+  box-shadow:
+    0 0 0 3px color-mix(in oklch, var(--destructive) 15%, transparent),
+    0 1px 2px color-mix(in oklch, var(--destructive) 8%, transparent);
+}
+
+/* ----------------------------------------------------------
+   11. NOT FOUND PAGE — Grid centering
+   ---------------------------------------------------------- */
+.not-found-grid {
+  display: grid;
+  place-items: center;
+  min-height: 60vh;
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------
+   12. ANIMATIONS & KEYFRAMES
+   ---------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease both;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Stagger delays for child elements */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+
+/* ----------------------------------------------------------
+   13. ADVANCED LAYERED SHADOWS
+   ---------------------------------------------------------- */
+.shadow-layered {
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--foreground) 4%, transparent),
+    0 4px 8px -2px color-mix(in oklch, var(--foreground) 3%, transparent),
+    0 8px 16px -4px color-mix(in oklch, var(--foreground) 2%, transparent);
+}
+
+.shadow-layered-lg {
+  box-shadow:
+    0 2px 4px color-mix(in oklch, var(--foreground) 4%, transparent),
+    0 8px 16px -4px color-mix(in oklch, var(--foreground) 4%, transparent),
+    0 16px 32px -8px color-mix(in oklch, var(--foreground) 3%, transparent),
+    0 32px 64px -16px color-mix(in oklch, var(--foreground) 2%, transparent);
+}
+
+.shadow-accent-glow {
+  box-shadow:
+    0 4px 12px color-mix(in oklch, var(--accent) 15%, transparent),
+    0 8px 24px -4px color-mix(in oklch, var(--accent) 10%, transparent),
+    0 16px 48px -8px color-mix(in oklch, var(--accent) 5%, transparent);
+}
+
+/* ----------------------------------------------------------
+   14. BACKDROP EFFECTS
+   ---------------------------------------------------------- */
+.backdrop-blur-heavy {
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+.backdrop-blur-light {
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+}
+
+/* ----------------------------------------------------------
+   15. SMOOTH TRANSITIONS
+   ---------------------------------------------------------- */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-smooth-slow {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----------------------------------------------------------
+   16. TEXT UTILITIES
+   ---------------------------------------------------------- */
+.text-gradient {
+  background: linear-gradient(135deg, var(--foreground), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ----------------------------------------------------------
+   17. SECTION BANDS — Alternating backgrounds
+   ---------------------------------------------------------- */
+.section-band {
+  padding: 5rem 1.5rem;
+}
+
+.section-band--alt {
+  background: color-mix(in oklch, var(--secondary) 30%, transparent);
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+/* ----------------------------------------------------------
+   18. CTA BANNER
+   ---------------------------------------------------------- */
+.cta-banner {
+  display: grid;
+  place-items: center;
+  border-radius: 1.5rem;
+  background: var(--accent);
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow:
+    0 8px 32px color-mix(in oklch, var(--accent) 20%, transparent),
+    0 16px 64px -8px color-mix(in oklch, var(--accent) 15%, transparent);
+  transition: box-shadow 0.3s ease;
+}
+
+.cta-banner:hover {
+  box-shadow:
+    0 12px 40px color-mix(in oklch, var(--accent) 25%, transparent),
+    0 24px 80px -12px color-mix(in oklch, var(--accent) 18%, transparent);
+}
+
+@media (width >= 640px) {
+  .cta-banner {
+    padding: 4rem 4rem;
+  }
+}
+
+/* ----------------------------------------------------------
+   19. MOBILE-FIRST RESPONSIVE UTILITIES
+   ---------------------------------------------------------- */
+/* Hide/show helpers */
+.sr-only-responsive {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (width >= 640px) {
+  .sr-only-responsive {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/* ----------------------------------------------------------
+   20. FILTER TOOLBAR — Scrollable pill bar
+   ---------------------------------------------------------- */
+.filter-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.filter-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.filter-pill:hover {
+  background: color-mix(in oklch, var(--secondary) 80%, transparent);
+}
+
+.filter-pill[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--accent) 15%, transparent);
+}
+
+/* ----------------------------------------------------------
+   21. ACCESSIBILITY: REDUCED MOTION
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------
+   22. HIGH CONTRAST MODE
+   ---------------------------------------------------------- */
+@media (forced-colors: active) {
+  .capability-card,
+  .project-card,
+  .testimonial-card,
+  .timeline-card {
+    border: 2px solid CanvasText;
+  }
+  .filter-pill[aria-pressed="true"] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
+/* ----------------------------------------------------------
+   23. DARK MODE ADJUSTMENTS (layered shadows shift)
+   ---------------------------------------------------------- */
+.dark .shadow-layered {
+  box-shadow:
+    0 1px 3px color-mix(in oklch, var(--foreground) 8%, transparent),
+    0 4px 12px -2px color-mix(in oklch, var(--foreground) 6%, transparent),
+    0 8px 24px -4px color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+.dark .shadow-layered-lg {
+  box-shadow:
+    0 2px 6px color-mix(in oklch, var(--foreground) 10%, transparent),
+    0 8px 20px -4px color-mix(in oklch, var(--foreground) 8%, transparent),
+    0 16px 40px -8px color-mix(in oklch, var(--foreground) 6%, transparent),
+    0 32px 80px -16px color-mix(in oklch, var(--foreground) 4%, transparent);
+}
+
+.dark .project-card:hover,
+.dark .capability-card:hover {
+  box-shadow:
+    0 8px 28px color-mix(in oklch, var(--accent) 8%, transparent),
+    0 20px 56px -8px color-mix(in oklch, var(--accent) 5%, transparent);
+}
